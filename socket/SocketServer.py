@@ -3,14 +3,22 @@ import socket
 class SocketServer:
     def __init__(self):
         self.ss=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        self.ss_port=(socket.gethostname(),8001)
+        self.ss_port=('localhost',8080)
         self.ss.bind(self.ss_port)
         self.ss.listen(5)
     def __del__(self):
-        
+        pass
 
     def chat_client(self):
-        self.conn_addr=self.ss.accept()
+        conn,addr = self.ss.accept()
+        print "Connected by "+addr()
+        while 1:
+            data = conn.recv(1024)
+            if data<=0:
+                break
+            else:
+                conn.sendall(data)
+            conn.close()
 
     def show_state(self):
         print self.ss
@@ -22,8 +30,7 @@ class SocketServer:
 
 if __name__ == '__main__':
     ss=SocketServer()
-    ss.create_socket()
     ss.chat_client()
-    ss.show_state()
+    #ss.show_state()
 
 
