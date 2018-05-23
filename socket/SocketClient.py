@@ -2,7 +2,7 @@
 import socket
 class SocketClient:
     def __init__(self):
-        self.addr=('localhost',8080)
+        self.addr=('192.168.1.3',50000)
         self.sc=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.sc.connect(self.addr)
         print "connect success"
@@ -10,13 +10,11 @@ class SocketClient:
         print "chat_server"
         for i in range(100):
             self.sc.sendall("helloworld")
-            data = sc.recv(1024)
-            print "Received"+data
-        s.close()
+            data = self.sc.recv(1024)
+            print i 
+            print "Received "+data
+        self.sc.close()
 
- 
-    def show_state(self):
-        print self.s
 
 if __name__ == '__main__':
     sc=SocketClient()
